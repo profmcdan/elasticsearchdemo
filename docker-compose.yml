@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
     container_name: elasticsearch
     environment:
       - xpack.security.enabled=false
@@ -18,14 +18,14 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-datavol:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
 
   kibana:
     container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.8.1
+    image: docker.elastic.co/kibana/kibana:7.17.0
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
@@ -34,5 +34,4 @@ services:
       - elasticsearch
 
 volumes:
-  elasticsearch-data:
-    driver: local
+  elasticsearch-datavol: ~
